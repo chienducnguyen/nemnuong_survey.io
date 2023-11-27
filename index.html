@@ -1,5 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submission</title>
+</head>
+<body>
+
 <form method="POST" action="https://script.google.com/macros/s/AKfycbyqOxfC0FyWRAtKKWA4e2tAA1moqMfED6YIOBAJCwNeUFqwn7pAt-3xLcUYKt_KXL1o/exec">
   <input name="email" type="email" placeholder="email" required>
   <input name="name" type="text" placeholder="name" required>
   <button type="submit">Send</button>
 </form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  // Fetch the form data
+  var formData = new FormData(event.target);
+
+  // Make a POST request to the specified URL
+  fetch(event.target.action, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Check the result from the JSON response
+    if (data.result === "success") {
+      // If successful, show a success message
+      document.body.innerHTML = "<h1>Form submitted successfully!</h1>";
+    } else {
+      // If not successful, show the form again with a fail message
+      document.body.innerHTML = "<h1>Form submission failed. Please try again.</h1>";
+      document.body.appendChild(event.target);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+});
+</script>
+
+</body>
+</html>
