@@ -68,25 +68,28 @@
 <body>
 
 <div id="myForm">
-  <h1>Form Submission</h1>
+  <h1>Form Đăng kí</h1>
   <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbyqOxfC0FyWRAtKKWA4e2tAA1moqMfED6YIOBAJCwNeUFqwn7pAt-3xLcUYKt_KXL1o/exec">
     <label for="email">Email:</label>
     <input name="email" type="email" placeholder="Enter your email" required>
 
-    <label for="name">Name:</label>
+    <label for="name">Tên:</label>
     <input name="name" type="text" placeholder="Enter your name" required>
+
+    <label for="sdt">Số điện thoại:</label>
+    <input name="sdt" type="text" placeholder="Enter your phone number" required>
 
     <button type="submit">Send</button>
   </form>
 </div>
 <!-- Success Message -->
 <div id="successMessage">
-  <h2>Form submitted successfully!</h2>
+  <h2>Đăng kí thành công!</h2>
 </div>
 
 <!-- Fail Message -->
 <div id="failMessage">
-  <h2>Form submission failed. Please try again.</h2>
+  <h2>Đăng kí thất bại, vui lòng thử lại</h2>
 </div>
 
 <script>
