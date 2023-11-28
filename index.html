@@ -4,17 +4,94 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Submission</title>
+  <style>
+    body {
+      background-image: url('your-background-image.jpg'); /* Replace 'your-background-image.jpg' with the actual path to your background image */
+      background-size: cover;
+      background-position: center;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #myForm {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    input, button {
+      margin-bottom: 15px;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #successMessage, #failMessage {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    #successMessage {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #failMessage {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-<form id="myForm" method="POST" action="https://script.google.com/macros/s/AKfycbyqOxfC0FyWRAtKKWA4e2tAA1moqMfED6YIOBAJCwNeUFqwn7pAt-3xLcUYKt_KXL1o/exec">
-  <input name="email" type="email" placeholder="email" required>
-  <input name="name" type="text" placeholder="name" required>
-  <button type="submit">Send</button>
-</form>
+<div id="myForm">
+  <h1>Form Submission</h1>
+  <form id="form" method="POST" action="https://script.google.com/macros/s/AKfycbyqOxfC0FyWRAtKKWA4e2tAA1moqMfED6YIOBAJCwNeUFqwn7pAt-3xLcUYKt_KXL1o/exec">
+    <label for="email">Email:</label>
+    <input name="email" type="email" placeholder="Enter your email" required>
+
+    <label for="name">Name:</label>
+    <input name="name" type="text" placeholder="Enter your name" required>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <!-- Success Message -->
+  <div id="successMessage">
+    <h2>Form submitted successfully!</h2>
+  </div>
+
+  <!-- Fail Message -->
+  <div id="failMessage">
+    <h2>Form submission failed. Please try again.</h2>
+  </div>
+</div>
 
 <script>
-document.getElementById("myForm").addEventListener("submit", function(event) {
+document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault(); // Prevent the default form submission
 
   // Fetch the form data
@@ -27,15 +104,15 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
   })
   .then(response => response.json())
   .then(data => {
-    // Check the result from the JSON response
+    // Show the appropriate message based on the result from the JSON response
     if (data.result === "success") {
-      // If successful, show a success message
-      document.body.innerHTML = "<h1>Form submitted successfully!</h1>";
+      document.getElementById("successMessage").style.display = "block";
     } else {
-      // If not successful, show the form again with a fail message
-      document.body.innerHTML = "<h1>Form submission failed. Please try again.</h1>";
-      document.body.appendChild(event.target);
+      document.getElementById("failMessage").style.display = "block";
     }
+
+    // Hide the form
+    document.getElementById("myForm").style.display = "none";
   })
   .catch(error => {
     console.error('Error:', error);
@@ -45,3 +122,4 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
 
 </body>
 </html>
+
